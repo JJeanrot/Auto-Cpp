@@ -3,16 +3,38 @@
 #include "unistd.h"
 #include "dirent.h"
 
-int initFileBuffers(char ***fileBuffers, char *path) {
+int copy(FILE *in, char *out, int index)
+{
+    int o = 0;
+    while (feof(in) == 0) {
+        int c = getc(in);
+        if (c == -1) break;
+        out[index + o] = c;
+        o++;
+    }
+    return o;
+}
+
+int initFileBuffers(char **fileBuffers, char *path) {
     struct dirent *de;
     DIR *dr = opendir(path);
+    FILE *file;
 
     if (dr == NULL) {
         return 1;
     } 
 
+    int i = 0;
+    char* fullPath = malloc(256);
     while ((de = readdir(dr)) != NULL) {
+        sprintf(fullPath, path);        
+        sprintf(fullPath, de->d_name);        
+
+        file = fopen(fullPath, "r");
         printf("%s\n", de->d_name);
+        
+        fileBuffers[i] = malloc(4096);
+        copy(file, fileBuffers[i], 0);
     }
 
     closedir(dr);
@@ -26,11 +48,15 @@ int main(int argc, char **argv) {
     }
 
     // buffers the files
-    char ***fileBuffers;
+    char **fileBuffers;
     if (initFileBuffers(fileBuffers, argv[1]) == 1) {
         printf("Incorrect path");
         return 1;
     }
+
+    while (true) {
+        
+    }       
 
     return 0;
 }
