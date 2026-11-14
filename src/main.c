@@ -2,6 +2,7 @@
 #include "stdlib.h"
 #include "unistd.h"
 #include "dirent.h"
+#include "string.h"
 
 int copy(FILE *in, char *out, int index)
 {
@@ -27,11 +28,14 @@ int initFileBuffers(char **fileBuffers, char *path) {
     int i = 0;
     char* fullPath = malloc(256);
     while ((de = readdir(dr)) != NULL) {
-        sprintf(fullPath, path);        
-        sprintf(fullPath, de->d_name);        
+        strcat(fullPath, path);
+        strcat(fullPath, de->d_name);
+        printf("%s\n", de->d_name);
 
         file = fopen(fullPath, "r");
-        printf("%s\n", de->d_name);
+        if (file == NULL) {
+            continue;
+        }
         
         fileBuffers[i] = malloc(4096);
         copy(file, fileBuffers[i], 0);
