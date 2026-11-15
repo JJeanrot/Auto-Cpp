@@ -26,6 +26,9 @@ int main(int argc, char **argv) {
         if (i <= 0) {
             continue;
         }
+
+        // Super slow
+        initFileBuffers(fileBuffers, path);
         printf("Modification ! %d\n", i);         
     }       
 
