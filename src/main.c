@@ -14,8 +14,8 @@ int main(int argc, char **argv) {
 
     // buffers the files
     char **fileBuffers = malloc(32 * sizeof(char*));
-    
-    if (initFileBuffers(fileBuffers, path) == 1) {
+    int nBuffers = initFileBuffers(fileBuffers, path); 
+    if (nBuffers == -1) {
         printf("Incorrect path");
         return 1;
     }
@@ -30,6 +30,8 @@ int main(int argc, char **argv) {
         // Super slow
         initFileBuffers(fileBuffers, path);
         printf("Modification ! %d\n", i);         
+        printf(fileBuffers[i-1]);
+        printf("\n");
     }       
 
     return 0;
