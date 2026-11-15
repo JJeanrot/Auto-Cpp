@@ -6,7 +6,7 @@ int initFileBuffers(char **fileBuffers, char *path) {
     FILE *file;
 
     if (dr == NULL) {
-        return 1;
+        return -1;
     } 
 
 
@@ -32,7 +32,7 @@ int initFileBuffers(char **fileBuffers, char *path) {
     }
 
     closedir(dr);
-    return 0;
+    return i;
 }
 
 int checkEqualFileBuffers(char **baseBuffers, char *path) {
@@ -72,3 +72,24 @@ int checkEqualFileBuffers(char **baseBuffers, char *path) {
     closedir(dr);
     return 0;
 }
+
+int checkFileBuffersSize(int baseNBuffers, DIR *dr) {
+    struct dirent *de;
+
+    int i = 0;
+    while ((de = readdir(dr)) != NULL) {
+        i++;
+    }  
+
+    free(de);
+    return i >= baseNBuffers;
+}
+
+void freeFileBuffers(char **fileBuffers, int nBuffers) {
+    for (int i = 0; i < nBuffers; i++) {
+        free(fileBuffers[i]);
+    }
+    free(fileBuffers);
+
+}
+
