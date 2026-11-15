@@ -1,0 +1,13 @@
+#ifndef UTILS_H
+#define UTILS
+
+#include "stdio.h"
+#include "stdlib.h"
+#include "unistd.h"
+
+#define BUFFER_SIZE 8192
+
+int copy(FILE *in, char *out, int index);
+int compareBuffers(char *ba, char *bb);
+
+#endif
