@@ -17,6 +17,11 @@ int initFileBuffers(char **fileBuffers, char *path) {
             fullPath[j] = '\0';
         }   
 
+        if (de->d_name[0] == '.') {
+            free(fullPath);
+            continue;
+        }
+
         strcat(fullPath, path);
         strcat(fullPath, de->d_name);
         printf("%s\n", de->d_name);
@@ -64,6 +69,11 @@ int checkEqualFileBuffers(char **baseBuffers, int nBuffers, char *path) {
             fullPath[i] = '\0';
         }   
 
+        if (de->d_name[0] == '.'){
+            free(fullPath);
+            continue;
+        }
+
         strcat(fullPath, path);
         strcat(fullPath, de->d_name);
 
@@ -98,6 +108,9 @@ int checkFileBuffersSize(int baseNBuffers, DIR *dr) {
 
     int i = 0;
     while ((de = readdir(dr)) != NULL) {
+        if (de->d_name[0] == '.') {
+            continue;
+        }
         i++;
     }  
 
