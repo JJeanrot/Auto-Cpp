@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
                 break;
             }
 
-            cse (FB_DELETE): {
+            case (FB_DELETE): {
                 printf("Deleted file !\n");
                 break;
             }
