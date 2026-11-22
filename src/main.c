@@ -23,31 +23,36 @@ int main(int argc, char **argv) {
     while (true) {
         sleep(1);
         int i = checkEqualFileBuffers(fileBuffers, nBuffers, path);
-        /*
-        if (i == FB_DIR_ERROR) {
-            printf("Incorrect path : %s\n", path);
-            continue;
-        }
-        else if (i == FB_NO_CHANGES) {
-            continue;
-        }   
+        
+        switch (i) {
 
-        // Super slow
-        */
-        /*
-        freeFileBuffers(fileBuffers, nBuffers);
-        fileBuffers = malloc(32 * sizeof(char*));
-        for (int i = 0; i < 32; i++) {
-            fileBuffers[i] = NULL;
+            case (FB_DIR_ERROR): {
+                printf("Incorrect path : %s\n", path);
+                break;
+            }
+
+            cse (FB_DELETE): {
+                printf("Deleted file !\n");
+                break;
+            }
+
+            case (FB_NO_CHANGES): {
+                break;
+            }
+
+            default: {
+                freeFileBuffers(fileBuffers, nBuffers);
+                fileBuffers = malloc(32 * sizeof(char*));
+                for (int i = 0; i < 32; i++) {
+                    fileBuffers[i] = NULL;
+                }
+                nBuffers = initFileBuffers(fileBuffers, path);
+                printf("nBuffers, %d\n", nBuffers);
+                printf("Modification ! %d\n", i); 
+                printf("%s", fileBuffers[i-1]);
+            }
+
         }
-        */
-        //nBuffers = initFileBuffers(fileBuffers, path);
-        printf("nBuffers, %d\n", nBuffers);
-        printf("Modification ! %d\n", i); 
-        printf("%s", fileBuffers[4]);
-        printf("%s", fileBuffers[0]);
-        printf("%s", fileBuffers[3]);
-        printf("\n");
     } 
     
     return 0;
