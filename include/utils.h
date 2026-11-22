@@ -5,7 +5,7 @@
 #include "stdlib.h"
 #include "unistd.h"
 
-#define BUFFER_SIZE 8192
+#define BUFFER_SIZE 4096
 
 int copy(FILE *in, char *out, int index);
 int compareBuffers(char *ba, char *bb);

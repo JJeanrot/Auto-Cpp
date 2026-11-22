@@ -9,19 +9,21 @@ int initFileBuffers(char **fileBuffers, char *path) {
         return -1;
     } 
 
-
     int i = 0;
     char* fullPath;
     while ((de = readdir(dr)) != NULL) {
         fullPath = malloc(256);
+        for (int j = 0; j < 256; j++) {
+            fullPath[j] = '\0';
+        }   
 
         strcat(fullPath, path);
         strcat(fullPath, de->d_name);
         printf("%s\n", de->d_name);
-        printf("%s\n", fullPath);
 
         file = fopen(fullPath, "r");
         if (file == NULL) {
+            free(fullPath);
             continue;
         }
         
@@ -29,13 +31,15 @@ int initFileBuffers(char **fileBuffers, char *path) {
         copy(file, fileBuffers[i], 0);
        
         i++;
+        free(fullPath);
     }
 
+    fclose(file);
     closedir(dr);
     return i;
 }
 
-int checkEqualFileBuffers(char **baseBuffers, char *path) {
+int checkEqualFileBuffers(char **baseBuffers, int nBuffers, char *path) {
     struct dirent *de;
     DIR *dr = opendir(path);
     FILE *file;
@@ -44,11 +48,21 @@ int checkEqualFileBuffers(char **baseBuffers, char *path) {
         return -1;
     } 
 
+    int equalSize = checkFileBuffersSize(nBuffers, dr);
+    if (!equalSize) {
+        return FB_DELETE;
+    }   
+    rewinddir(dr);
+
+
     int i = 0;
     char* fullPath;
     char* checkBuffer;
     while ((de = readdir(dr)) != NULL) {
         fullPath = malloc(256);
+        for (int i = 0; i < 256; i++) {
+            fullPath[i] = '\0';
+        }   
 
         strcat(fullPath, path);
         strcat(fullPath, de->d_name);
@@ -56,19 +70,25 @@ int checkEqualFileBuffers(char **baseBuffers, char *path) {
         file = fopen(fullPath, "r");
         
         if (file == NULL) {
+            free(fullPath);
             continue;
         }
 
         checkBuffer = malloc(BUFFER_SIZE );
+        for (int i = 0; i < BUFFER_SIZE; i++) {
+            checkBuffer[i] = '\0'; 
+        }
         copy(file, checkBuffer, 0);
         if (compareBuffers(baseBuffers[i], checkBuffer) == 1) {
-            
+            fclose(file); 
             return i+1;
         }
 
         i++;
+        free(fullPath);
     }
 
+    fclose(file);
     closedir(dr);
     return 0;
 }
@@ -90,6 +110,5 @@ void freeFileBuffers(char **fileBuffers, int nBuffers) {
         free(fileBuffers[i]);
     }
     free(fileBuffers);
-
 }
 
