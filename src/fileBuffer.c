@@ -105,10 +105,21 @@ int checkEqualFileBuffers(char **baseBuffers, int nBuffers, char *path) {
 }
 
 int isFileSuitable(char *fullPath) {
+    // Is it a regular file and not a directory ?
     if (!isRegularFile(fullPath)) {
         free(fullPath);
         return 1;
     }
+
+    // Is it a .h file ?
+    int i = 0;
+    while (fullPath[i] != '\0' && fullPath[i] != '.') {
+        i++; 
+    }
+    if (fullPath[i+1] != 'h' || fullPath[i+2] != '\0') {
+        return 1;
+    }
+    
 
     return 0;
 }
