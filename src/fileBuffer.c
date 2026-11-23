@@ -21,8 +21,7 @@ int initFileBuffers(char **fileBuffers, char *path) {
         strcat(fullPath, path);
         strcat(fullPath, de->d_name);
 
-        if (!isRegularFile(fullPath)) {
-            free(fullPath);
+        if (isFileSuitable(fullPath)) {
             continue;
         }
 
@@ -75,8 +74,7 @@ int checkEqualFileBuffers(char **baseBuffers, int nBuffers, char *path) {
         strcat(fullPath, path);
         strcat(fullPath, de->d_name);
 
-        if (!isRegularFile(fullPath)) {
-            free(fullPath);
+        if (isFileSuitable(fullPath)) {
             continue;
         }
 
@@ -103,6 +101,15 @@ int checkEqualFileBuffers(char **baseBuffers, int nBuffers, char *path) {
 
     fclose(file);
     closedir(dr);
+    return 0;
+}
+
+int isFileSuitable(char *fullPath) {
+    if (!isRegularFile(fullPath)) {
+        free(fullPath);
+        return 1;
+    }
+
     return 0;
 }
 

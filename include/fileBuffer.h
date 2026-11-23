@@ -15,6 +15,7 @@
 
 int initFileBuffers(char **fileBuffers, char *path);
 int checkEqualFileBuffers(char **baseBuffers, int nBuffers, char *path);
+int isFileSuitable(char *fullPath);
 int checkFileBuffersSize(int baseNBuffers, DIR *dr);
 void freeFileBuffers(char **fileBuffers, int nBuffers);
 
