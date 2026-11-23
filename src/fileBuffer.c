@@ -17,13 +17,15 @@ int initFileBuffers(char **fileBuffers, char *path) {
             fullPath[j] = '\0';
         }   
 
-        if (de->d_name[0] == '.') {
+
+        strcat(fullPath, path);
+        strcat(fullPath, de->d_name);
+
+        if (!isRegularFile(fullPath)) {
             free(fullPath);
             continue;
         }
 
-        strcat(fullPath, path);
-        strcat(fullPath, de->d_name);
         printf("%s\n", de->d_name);
 
         file = fopen(fullPath, "r");
@@ -31,6 +33,7 @@ int initFileBuffers(char **fileBuffers, char *path) {
             free(fullPath);
             continue;
         }
+
         
         fileBuffers[i] = malloc(BUFFER_SIZE );
         copy(file, fileBuffers[i], 0);
@@ -69,13 +72,13 @@ int checkEqualFileBuffers(char **baseBuffers, int nBuffers, char *path) {
             fullPath[i] = '\0';
         }   
 
-        if (de->d_name[0] == '.'){
+        strcat(fullPath, path);
+        strcat(fullPath, de->d_name);
+
+        if (!isRegularFile(fullPath)) {
             free(fullPath);
             continue;
         }
-
-        strcat(fullPath, path);
-        strcat(fullPath, de->d_name);
 
         file = fopen(fullPath, "r");
         
@@ -108,7 +111,7 @@ int checkFileBuffersSize(int baseNBuffers, DIR *dr) {
 
     int i = 0;
     while ((de = readdir(dr)) != NULL) {
-        if (de->d_name[0] == '.') {
+        if (!isRegularFile(de->d_name)) {
             continue;
         }
         i++;

@@ -1,6 +1,8 @@
 #ifndef UTILS_H
 #define UTILS
 
+#include "dirent.h"
+#include "errno.h"
 #include "stdio.h"
 #include "stdlib.h"
 #include "unistd.h"
@@ -9,5 +11,6 @@
 
 int copy(FILE *in, char *out, int index);
 int compareBuffers(char *ba, char *bb);
+int isRegularFile(char *path);
 
 #endif
