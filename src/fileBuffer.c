@@ -36,7 +36,7 @@ int initFileBuffers(char **fileBuffers, char **listenFileNames, char *path) {
 
         
         fileBuffers[i] = malloc(BUFFER_SIZE );
-        copy(file, fileBuffers[i], 0);
+        copyFromFile(file, fileBuffers[i], 0);
        
         i++;
         free(fullPath);
@@ -90,7 +90,7 @@ int checkEqualFileBuffers(char **baseBuffers, int nBuffers, char *path) {
         for (int i = 0; i < BUFFER_SIZE; i++) {
             checkBuffer[i] = '\0'; 
         }
-        copy(file, checkBuffer, 0);
+        copyFromFile(file, checkBuffer, 0);
         if (compareBuffers(baseBuffers[i], checkBuffer) == 1) {
             fclose(file); 
             return i+1;

@@ -9,7 +9,8 @@
 
 #define BUFFER_SIZE 4096
 
-int copy(FILE *in, char *out, int index);
+int copyFromFile(FILE *in, char *out, int index);
+int copyFromBuffer(char *in, char *out, int index);
 int compareBuffers(char *ba, char *bb);
 int isRegularFile(char *path);
 

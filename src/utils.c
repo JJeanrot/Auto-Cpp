@@ -1,9 +1,20 @@
 #include "utils.h"
 
-int copy(FILE *in, char *out, int index) {
+int copyFromFile(FILE *in, char *out, int index) {
     int o = 0;
     while (feof(in) == 0) {
         int c = getc(in);
+        if (c == -1) break;
+        out[index + o] = c;
+        o++;
+    }
+    return o;
+}
+
+int copyFromBuffer(char *in, char *out, int index) {
+    int o = 0;
+    while (in[o] != '\0') {
+        char c = in[o];
         if (c == -1) break;
         out[index + o] = c;
         o++;
