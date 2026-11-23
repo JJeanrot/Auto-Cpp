@@ -5,29 +5,31 @@
 
 
 int main(int argc, char **argv) {
-    if (argc != 2) {
-        printf("Usage : (whatever) path_to_listen_to\n");
+    if (argc != 3) {
+        printf("Usage : (whatever) listenPath modifyPath\n");
         return 1;
     }
 
-    char *path = argv[1];
+    char *listenPath = argv[1];
+    char *modifyPath = argv[2];
 
     // buffers the files
     char **fileBuffers = malloc(32 * sizeof(char*));
-    int nBuffers = initFileBuffers(fileBuffers, path); 
+    char **listenFileNames = malloc(32 * sizeof(char*));
+    int nBuffers = initFileBuffers(fileBuffers, listenFileNames, listenPath); 
     if (nBuffers == -1) {
-        printf("Incorrect path");
+        printf("Incorrect listenPath");
         return 1;
     }
 
     while (true) {
         sleep(1);
-        int i = checkEqualFileBuffers(fileBuffers, nBuffers, path);
+        int i = checkEqualFileBuffers(fileBuffers, nBuffers, listenPath);
         
         switch (i) {
 
             case (FB_DIR_ERROR): {
-                printf("Incorrect path : %s\n", path);
+                printf("Incorrect listenPath : %s\n", listenPath);
                 break;
             }
 
@@ -46,10 +48,11 @@ int main(int argc, char **argv) {
                 for (int i = 0; i < 32; i++) {
                     fileBuffers[i] = NULL;
                 }
-                nBuffers = initFileBuffers(fileBuffers, path);
-                printf("nBuffers, %d\n", nBuffers);
+                nBuffers = initFileBuffers(fileBuffers, listenFileNames, listenPath);
                 printf("Modification ! %d\n", i); 
-                printf("%s", fileBuffers[i-1]);
+                printf("The modified file is : %s\n", listenFileNames[i-1]);
+                printf("Trying to find the corresponding file ...\n");
+                
             }
 
         }

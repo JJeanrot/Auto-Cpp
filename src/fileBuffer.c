@@ -1,6 +1,6 @@
 #include "fileBuffer.h"
 
-int initFileBuffers(char **fileBuffers, char *path) {
+int initFileBuffers(char **fileBuffers, char **listenFileNames, char *path) {
     struct dirent *de;
     DIR *dr = opendir(path);
     FILE *file;
@@ -26,6 +26,7 @@ int initFileBuffers(char **fileBuffers, char *path) {
         }
 
         printf("%s\n", de->d_name);
+        listenFileNames[i] = de->d_name;
 
         file = fopen(fullPath, "r");
         if (file == NULL) {
