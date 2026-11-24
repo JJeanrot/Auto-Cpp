@@ -17,7 +17,6 @@ int initFileBuffers(char **fileBuffers, char **listenFileNames, char *path) {
             fullPath[j] = '\0';
         }   
 
-
         strcat(fullPath, path);
         strcat(fullPath, de->d_name);
 
@@ -25,8 +24,11 @@ int initFileBuffers(char **fileBuffers, char **listenFileNames, char *path) {
             continue;
         }
 
-        printf("%s\n", de->d_name);
-        listenFileNames[i] = de->d_name;
+        listenFileNames[i] = malloc(256);
+        for (int j = 0; j < 256; j++) {
+            listenFileNames[i][j] = '\0'; 
+        }
+        copyFromBuffer(de->d_name, listenFileNames[i], 0);
 
         file = fopen(fullPath, "r");
         if (file == NULL) {
@@ -34,7 +36,6 @@ int initFileBuffers(char **fileBuffers, char **listenFileNames, char *path) {
             continue;
         }
 
-        
         fileBuffers[i] = malloc(BUFFER_SIZE );
         copyFromFile(file, fileBuffers[i], 0);
        
