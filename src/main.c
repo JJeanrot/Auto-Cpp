@@ -53,12 +53,21 @@ int main(int argc, char **argv) {
                 }
                 listenFileNames = malloc(32 * sizeof(char*));
                 nBuffers = initFileBuffers(fileBuffers, listenFileNames, listenPath);
-                printf("Modification !\n"); 
+                printf("\nModification !\n"); 
                 printf("The modified file is : %s\n", listenFileNames[i-1]);
                 char *cppName = truncateFileNameExtension(listenFileNames[i-1]);
                 extendWithCpp(cppName); 
                 printf("The corresponding file is : %s\n", cppName);        
-                
+                char *fullPath = malloc(256);
+                strcat(fullPath, modifyPath);
+                strcat(fullPath, cppName);
+
+                if (fopen(fullPath, "w+") == NULL) {
+                    printf("File does not exists\n");
+                }
+            
+                free(fullPath);
+                free(cppName);
             }
         }
     } 
