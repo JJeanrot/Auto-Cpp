@@ -3,6 +3,6 @@
 
 #include "utils.h"
 
-
+void generateCppFile(char *headerFile, char *sourcePath);
 
 #endif

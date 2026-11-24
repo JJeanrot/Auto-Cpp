@@ -59,11 +59,13 @@ int main(int argc, char **argv) {
                 extendWithCpp(cppName); 
                 printf("The corresponding file is : %s\n", cppName);        
                 char *fullPath = malloc(256);
+                fullPath[0] = '\0';
                 strcat(fullPath, modifyPath);
                 strcat(fullPath, cppName);
 
                 if (fopen(fullPath, "w+") == NULL) {
-                    printf("File does not exists\n");
+                    // File does not exist : generate
+                    generateCppFile(fileBuffers[i-1], fullPath);
                 }
             
                 free(fullPath);
