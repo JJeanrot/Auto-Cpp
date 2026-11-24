@@ -17,6 +17,8 @@ int isRegularFile(char *path);
 void freeBuffers(char **buffers, int nBuffers);
 
 char *truncateFileNameExtension(char* name);
-void extendWithCpp(char* name);
+void extendWithCpp(char *name);
+
+int getCharptrLength(char *ptr);
 
 #endif

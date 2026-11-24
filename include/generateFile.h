@@ -3,6 +3,8 @@
 
 #include "utils.h"
 
-void generateCppFile(char *headerFile, char *sourcePath);
+void generateCppFile(char *headerFile, char *sourcePath, char *headerFileName);
+
+void addHeaderInclude(FILE *file, char *headerName, int headerNameLength);
 
 #endif

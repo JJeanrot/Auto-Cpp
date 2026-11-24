@@ -65,7 +65,7 @@ int main(int argc, char **argv) {
 
                 if (fopen(fullPath, "r") == NULL) {
                     // File does not exist : generate
-                    generateCppFile(fileBuffers[i-1], fullPath);
+                    generateCppFile(fileBuffers[i-1], fullPath, listenFileNames[i-1]);
                     printf("Generated new file : %s\n", cppName);
                 }
             
