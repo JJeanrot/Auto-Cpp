@@ -15,5 +15,6 @@ int compareBuffers(char *ba, char *bb);
 int isRegularFile(char *path);
 
 void freeBuffers(char **buffers, int nBuffers);
+char *truncateFileNameExtension(char* path);
 
 #endif

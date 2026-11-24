@@ -56,3 +56,14 @@ void freeBuffers(char **buffers, int nBuffers) {
     }
     free(buffers);
 }
+
+char *truncateFileNameExtension(char *path) {
+    char *name = malloc(256);
+    int i = 0;
+    while (path[i] != '\0' && path[i] != '.') {
+        name[i] = path[i];
+        i++;
+    }
+    name[i] = '\0';
+    return name;
+}
