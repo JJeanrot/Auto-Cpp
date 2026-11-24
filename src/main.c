@@ -2,6 +2,7 @@
 #include "string.h"
 
 #include "fileBuffer.h"
+#include "generateFile.h"
 #include "utils.h"
 
 int main(int argc, char **argv) {
@@ -52,9 +53,8 @@ int main(int argc, char **argv) {
                 }
                 listenFileNames = malloc(32 * sizeof(char*));
                 nBuffers = initFileBuffers(fileBuffers, listenFileNames, listenPath);
-                printf("Modification ! %d\n", i); 
+                printf("Modification !\n"); 
                 printf("The modified file is : %s\n", listenFileNames[i-1]);
-                printf("Trying to find the corresponding file ...\n");
                 char *cppName = truncateFileNameExtension(listenFileNames[i-1]);
                 extendWithCpp(cppName); 
                 printf("The corresponding file is : %s\n", cppName);        
