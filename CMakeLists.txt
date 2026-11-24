@@ -8,6 +8,7 @@ add_executable(Auto-Cpp src/main.c)
 target_include_directories(Auto-Cpp PRIVATE include)
 target_sources(Auto-Cpp PRIVATE 
     src/fileBuffer.c
+    src/generateFile.c
     src/utils.c
 )
 
