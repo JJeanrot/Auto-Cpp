@@ -68,7 +68,7 @@ char *truncateFileNameExtension(char *name) {
     return truncated;
 }
 
-void extendWithCpp(char* name) {
+void extendWithCpp(char *name) {
     int i = 0;
     while (name[i] != '\0') {
         i++;
@@ -78,4 +78,12 @@ void extendWithCpp(char* name) {
     name[i + 2] = 'p';
     name[i + 3] = 'p';
     name[i + 4] = '\0';
+}
+
+int getCharptrLength(char *ptr) {
+    int i = 0;
+    while (ptr[i] != '\0') {
+        i++;
+    }
+    return i+1;
 }
