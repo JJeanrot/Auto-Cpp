@@ -141,10 +141,3 @@ int checkFileBuffersSize(int baseNBuffers, DIR *dr) {
     return i >= baseNBuffers;
 }
 
-void freeFileBuffers(char **fileBuffers, int nBuffers) {
-    for (int i = 0; i < nBuffers; i++) {
-        free(fileBuffers[i]);
-    }
-    free(fileBuffers);
-}
-

@@ -2,7 +2,7 @@
 #include "string.h"
 
 #include "fileBuffer.h"
-
+#include "utils.h"
 
 int main(int argc, char **argv) {
     if (argc != 3) {
@@ -43,8 +43,8 @@ int main(int argc, char **argv) {
             }
 
             default: {
-                freeFileBuffers(fileBuffers, nBuffers);
-                freeFileBuffers(listenFileNames, nBuffers);
+                freeBuffers(fileBuffers, nBuffers);
+                freeBuffers(listenFileNames, nBuffers);
 
                 fileBuffers = malloc(32 * sizeof(char*));
                 for (int i = 0; i < 32; i++) {

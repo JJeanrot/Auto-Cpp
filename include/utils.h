@@ -14,4 +14,6 @@ int copyFromBuffer(char *in, char *out, int index);
 int compareBuffers(char *ba, char *bb);
 int isRegularFile(char *path);
 
+void freeBuffers(char **buffers, int nBuffers);
+
 #endif

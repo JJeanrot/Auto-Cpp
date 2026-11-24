@@ -49,3 +49,10 @@ int isRegularFile(char *path) {
 
     return -1;
 }
+
+void freeBuffers(char **buffers, int nBuffers) {
+    for (int i = 0; i < nBuffers; i++) {
+        free(buffers[i]);
+    }
+    free(buffers);
+}
