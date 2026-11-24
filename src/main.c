@@ -63,9 +63,10 @@ int main(int argc, char **argv) {
                 strcat(fullPath, modifyPath);
                 strcat(fullPath, cppName);
 
-                if (fopen(fullPath, "w+") == NULL) {
+                if (fopen(fullPath, "r") == NULL) {
                     // File does not exist : generate
                     generateCppFile(fileBuffers[i-1], fullPath);
+                    printf("Generated new file : %s\n", cppName);
                 }
             
                 free(fullPath);
