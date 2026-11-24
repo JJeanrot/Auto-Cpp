@@ -15,6 +15,8 @@ int compareBuffers(char *ba, char *bb);
 int isRegularFile(char *path);
 
 void freeBuffers(char **buffers, int nBuffers);
-char *truncateFileNameExtension(char* path);
+
+char *truncateFileNameExtension(char* name);
+void extendWithCpp(char* name);
 
 #endif

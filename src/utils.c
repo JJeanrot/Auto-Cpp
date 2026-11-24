@@ -57,13 +57,25 @@ void freeBuffers(char **buffers, int nBuffers) {
     free(buffers);
 }
 
-char *truncateFileNameExtension(char *path) {
-    char *name = malloc(256);
+char *truncateFileNameExtension(char *name) {
+    char *truncated = malloc(256);
     int i = 0;
-    while (path[i] != '\0' && path[i] != '.') {
-        name[i] = path[i];
+    while (name[i] != '\0' && name[i] != '.') {
+        truncated[i] = name[i];
         i++;
     }
-    name[i] = '\0';
-    return name;
+    truncated[i] = '\0';
+    return truncated;
+}
+
+void extendWithCpp(char* name) {
+    int i = 0;
+    while (name[i] != '\0') {
+        i++;
+    }
+    name[i] = '.';
+    name[i + 1] = 'c';
+    name[i + 2] = 'p';
+    name[i + 3] = 'p';
+    name[i + 4] = '\0';
 }

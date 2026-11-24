@@ -55,7 +55,9 @@ int main(int argc, char **argv) {
                 printf("Modification ! %d\n", i); 
                 printf("The modified file is : %s\n", listenFileNames[i-1]);
                 printf("Trying to find the corresponding file ...\n");
-                printf("The corresponding file is : %s\n", truncateFileNameExtension(listenFileNames[i-1]));        
+                char *cppName = truncateFileNameExtension(listenFileNames[i-1]);
+                extendWithCpp(cppName); 
+                printf("The corresponding file is : %s\n", cppName);        
                 
             }
         }
