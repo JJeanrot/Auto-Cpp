@@ -44,10 +44,13 @@ int main(int argc, char **argv) {
 
             default: {
                 freeFileBuffers(fileBuffers, nBuffers);
+                freeFileBuffers(listenFileNames, nBuffers);
+
                 fileBuffers = malloc(32 * sizeof(char*));
                 for (int i = 0; i < 32; i++) {
                     fileBuffers[i] = NULL;
                 }
+                listenFileNames = malloc(32 * sizeof(char*));
                 nBuffers = initFileBuffers(fileBuffers, listenFileNames, listenPath);
                 printf("Modification ! %d\n", i); 
                 printf("The modified file is : %s\n", listenFileNames[i-1]);

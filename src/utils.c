@@ -15,7 +15,6 @@ int copyFromBuffer(char *in, char *out, int index) {
     int o = 0;
     while (in[o] != '\0') {
         char c = in[o];
-        if (c == -1) break;
         out[index + o] = c;
         o++;
     }
