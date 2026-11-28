@@ -23,9 +23,12 @@ int copyFromBuffer(char *in, char *out, int index) {
 
 int compareBuffers(char* ba, char* bb) {
     int i = 0;
-    while (i < BUFFER_SIZE ) {
+    while (i < BUFFER_SIZE) {
         if (ba[i] != bb[i]) {
             return 1;
+        }
+        if (ba[i] == '\0') {
+            return 0;
         }
         i++;
     } 
