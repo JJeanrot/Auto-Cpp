@@ -37,18 +37,24 @@ int initFileBuffers(char **fileBuffers, char **listenFileNames, char *path) {
         }
 
         fileBuffers[i] = malloc(BUFFER_SIZE );
+        for (int j = 0; j < BUFFER_SIZE; j++) {
+            fileBuffers[i][j] = '\0'; 
+        }
         copyFromFile(file, fileBuffers[i], 0);
        
         i++;
         free(fullPath);
     }
 
-    fclose(file);
+    if (i != 0) {
+        fclose(file);
+    }
     closedir(dr);
+
     return i;
 }
 
-int checkEqualFileBuffers(char **baseBuffers, int nBuffers, char *path) {
+int checkEqualFileBuffers(char **baseBuffers, char **listenFileNames, int nBuffers, char *path) {
     struct dirent *de;
     DIR *dr = opendir(path);
     FILE *file;
@@ -81,10 +87,15 @@ int checkEqualFileBuffers(char **baseBuffers, int nBuffers, char *path) {
         }
 
         file = fopen(fullPath, "r");
-        
+
         if (file == NULL) {
             free(fullPath);
             continue;
+        }
+
+        if (i >= nBuffers) {
+            fclose(file);
+            return i+1;
         }
 
         checkBuffer = malloc(BUFFER_SIZE );
@@ -92,6 +103,11 @@ int checkEqualFileBuffers(char **baseBuffers, int nBuffers, char *path) {
             checkBuffer[i] = '\0'; 
         }
         copyFromFile(file, checkBuffer, 0);
+
+        if (compareBuffers(listenFileNames[i], de->d_name) == 1) {
+            fclose(file);
+            return i+1;
+        }
         if (compareBuffers(baseBuffers[i], checkBuffer) == 1) {
             fclose(file); 
             return i+1;
@@ -101,9 +117,11 @@ int checkEqualFileBuffers(char **baseBuffers, int nBuffers, char *path) {
         free(fullPath);
     }
 
-    fclose(file);
+    if (i != 0) {
+        fclose(file);
+    }
     closedir(dr);
-    return 0;
+    return FB_NO_CHANGES;
 }
 
 int isFileSuitable(char *fullPath) {

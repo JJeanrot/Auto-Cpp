@@ -28,6 +28,7 @@ int initFileBuffers(char **fileBuffers, char **listenFileNames, char *path);
  *  First checks if the actual number of files in the directory is the smaller than the file buffers. If it is, its means there was a file deletion, and it gets returned.
  *  After, goes through each of the files in the listened path. If the file is an actual file, and if it is a ".h" file, then it is counted. Then, compares that file with the corresponding buffer in the fileBuffers parameter. If there is a difference it gets returned.
  *  @param baseBuffers the buffers calculated in @see initFileBuffers
+ *  @param listenFileNames file names
  *  @param nBuffers the nomber of buffers that were computed
  *  @param path path to listen to
  *  @return 
@@ -36,7 +37,7 @@ int initFileBuffers(char **fileBuffers, char **listenFileNames, char *path);
  *  FB_DIR_ERROR if an error occured with opendir()
  *  else, the index + 1 of the modified (or added) file
  */
-int checkEqualFileBuffers(char **baseBuffers, int nBuffers, char *path);
+int checkEqualFileBuffers(char **baseBuffers, char **listenFileNames, int nBuffers, char *path);
 
 /** Checks if the file is suitable for listen.
  *  Checks if it is not a directory

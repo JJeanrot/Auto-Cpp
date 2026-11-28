@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
 
     while (true) {
         sleep(1);
-        int i = checkEqualFileBuffers(fileBuffers, nBuffers, listenPath);
+        int i = checkEqualFileBuffers(fileBuffers, listenFileNames, nBuffers, listenPath);
         
         switch (i) {
 
