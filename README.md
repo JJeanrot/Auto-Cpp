@@ -2,7 +2,7 @@
 
 ## What's that
 
-Auto-cpp is a tool that helps you coding in C++. The aim of the tool is to automaticly write .cpp files depening on their header files. When you modify or create a class declaration, it will automaticly write empty definitions in the cpp file, saving time on boring copy/pasting
+Auto-cpp is a tool that helps you coding in C++. The aim of the tool is to automaticly write .cpp files depending on their header files. When you modify or create a class declaration, it will automaticly write empty definitions in the cpp file, saving time on boring copy/pasting.
 
 ## Currently
 
@@ -10,7 +10,7 @@ Auto-cpp stands at its 0.1.0 version. In this version, it creates a new cpp file
 
 ## Install
 
-Clone the project to your computer. Then run : 
+Clone the project in your computer. Then run : 
 
 `cmake --build build`
 
